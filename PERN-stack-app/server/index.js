@@ -3,10 +3,18 @@ const app = express();
 const cors = require("cors")
 const pool = require("./database")
 
+// 👇️ handle uncaught exceptions
+process.on('uncaughtException', function (err) {
+  console.log(err);
+});
+
+
+
 //middleware
 app.use(cors());
 app.use(express.json());
  
+
 //ROUTES//
 
 //create todo object
