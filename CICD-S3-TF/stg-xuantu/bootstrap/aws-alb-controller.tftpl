@@ -1,0 +1,6 @@
+clusterName: NonCDE-eks-cluster
+replicaCount: 1
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::${ACCOUNT_ID}:role/NonCDE-eks-cluster-aws-load-balancer-controller-sa-irsa
+  create: true

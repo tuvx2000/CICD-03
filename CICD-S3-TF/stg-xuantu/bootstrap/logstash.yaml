@@ -1,0 +1,33 @@
+---
+replicas: 1
+
+image: "opensearchproject/logstash-oss-with-opensearch-output-plugin"
+imageTag: "latest"
+
+logstashConfig:
+  logstash.yml: |
+    http.host: "0.0.0.0"
+# Allows you to add any pipeline files in /usr/share/logstash/pipeline/
+### ***warn*** there is a hardcoded logstash.conf in the image, override it first
+logstashPipeline:
+  logstash.conf: |
+    input {
+      beats {
+          port => 5044
+      }
+    }
+    filter {
+    }
+    output {
+      opensearch {
+        index => "logstash-%{[@metadata][beat]}"
+        hosts => [ "https://vpc-noncde-opensearch-2wpx3f3utzys6kwlfk5r4zzmxi.ap-southeast-1.es.amazonaws.com:443" ]
+        user => "admin"
+        password => "87D_8aFQxbxD0BQP"
+        ecs_compatibility => disabled
+        ssl_certificate_verification => false
+      }
+    }
+
+ingress:
+  enabled: false

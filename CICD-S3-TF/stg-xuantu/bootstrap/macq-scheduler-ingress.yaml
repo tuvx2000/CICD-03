@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: macq-scheduler
+  namespace: multi-acquirer
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-name: "nlb-ingress"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: RGPC
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    
+spec:
+  ingressClassName: nginx-internal
+  rules:
+  - host: macq-scheduler.nextpay.vn
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: macq-scheduler
+              port:
+                number: 8080

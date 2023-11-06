@@ -1,0 +1,51 @@
+controller:
+  replicas: 1
+redis:
+  enabled: true
+server:
+  ingress:
+    enabled: true
+    ingressClassName: "alb"
+    annotations:
+      alb.ingress.kubernetes.io/load-balancer-name: cde-eks-cluster-alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:963137721104:certificate/6f77300a-5c8b-476e-bcf3-a87db2f2b898
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/backend-protocol: HTTPS
+      alb.ingress.kubernetes.io/target-type: 'ip'
+      alb.ingress.kubernetes.io/success-codes: '200,404'
+      alb.ingress.kubernetes.io/healthcheck-path: /
+      alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-2017-01
+      alb.ingress.kubernetes.io/group.name: macq
+    hosts:
+      - argocd-test.nextpay.vn
+    paths:
+      - /
+configs:
+  params:
+    # -- define the application controller `--status-processors`
+    controller.status.processors: 20
+    # -- define the application controller `--operation-processors`
+    controller.operation.processors: 10
+    # -- define the application controller `--self-heal-timeout-seconds`
+    controller.self.heal.timeout.seconds: "3"
+    # -- define the application controller `--repo-server-timeout-seconds`
+    controller.repo.server.timeout.seconds: "60"
+
+  cm:
+    admin.enabled: true
+    exec.enabled: true
+
+  rbac:
+    policy.default: ''
+    policy.csv: |
+      p, role:dev-ecv, applications, get, */*, allow
+      p, role:dev-ecv, applications, sync, */*, allow
+      p, role:dev-ecv, exec, create, */*, allow
+      p, role:dev-ecv, clusters, *, *, deny
+      p, role:dev-ecv, projects, *, *, deny
+      p, role:dev-ecv, repositories, *, *, deny
+      p, role:dev-ecv, certificates, *, *, deny
+      p, role:dev-ecv, accounts, *, *, deny
+      g, dev-ecv, role:dev-nextpay
