@@ -1,62 +1,60 @@
-apiVersion: v1
-kind: Pod
+---
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: nginx
-  labels:
-    app.kubernetes.io/name: proxy
+  name: pern-server-deployment
 spec:
-  containers:
-  - name: nginx
-    image: tuvx2000/pern-server:v0.4
-    ports:
-      - containerPort: 80
-        name: http-web-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pern-server
+  template:
+    metadata:
+      labels:
+        app: pern-server
+    spec:
+      containers:
+        - name: pern-server
+          image: tuvx2000/pern-server:v0.4
+          ports:
+            - containerPort: 80
+          env:
+            - name: CUSTOM_TEXT
+              value: "Welcome to my custom text app!"
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: pern-server-service
 spec:
   selector:
-    app.kubernetes.io/name: proxy
+    app: pern-server
   ports:
   - name: name-of-service-port
     protocol: TCP
     port: 80
-    targetPort: http-web-svc
-    
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: pern-backend-deployment
-#   labels:
-#     app: pern-server
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: pern-server
-#   template:
-#     metadata:
-#       labels:
-#         app: pern-server
-#     spec:
-#       containers:
-#       - name: pern-server
-#         image: tuvx2000/pern-server:v0.2
-#         ports:
-#         - containerPort: 5001
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: pern-server-service
-# spec:
-#   selector:
-#     app.kubernetes.io/name: pern-server
-#   ports:
-#   - name: tcp
-#     protocol: TCP
-#     port: 5001
-#     targetPort: 5001
+    targetPort: 80
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pern-server-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+spec:
+  rules:
+    - host:
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pern-server-service
+                port:
+                  number: 80
