@@ -9,7 +9,7 @@ const ListTodos = () => {
 
   const deleteTodo = async id => {
     try {
-      const deleteTodo = await fetch(`http://localhost:5001/todos/${id}`, {
+      const deleteTodo = await fetch(`http://pern-server-service.default.svc.cluster.local/todos/${id}`, {
         method: "DELETE"
       });
 
@@ -21,7 +21,7 @@ const ListTodos = () => {
 
   const getTodos = async () => {
     try {
-      const response = await fetch("http://localhost:5001/todos");
+      const response = await fetch("http://pern-server-service.default.svc.cluster.local/todos");
       const jsonData = await response.json();
 
       setTodos(jsonData);
