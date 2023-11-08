@@ -10,7 +10,7 @@ const EditTodo = ({ todo }) => {
     try {
       const body = { description };
       const response = await fetch(
-        `http://pern-server-service.default.svc.cluster.local/todos/${todo.todo_id}`,
+        `http://xuantu-2.ecvhub.link/todos/${todo.todo_id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
