@@ -21,6 +21,13 @@ spec:
           env:
             - name: CUSTOM_TEXT
               value: "Welcome to my custom text app!"
+          volumeMounts:
+            - name: efs
+              mountPath: "/data"
+      volumes:
+        - name: efs
+          persistentVolumeClaim:
+            claimName: my-service-efs
 
 ---
 apiVersion: v1

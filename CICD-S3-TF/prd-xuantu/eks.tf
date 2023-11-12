@@ -236,6 +236,7 @@ module "eks_kubernetes_addons" {
   oidc_provider_arn = module.eks.oidc_provider_arn
 
   enable_aws_load_balancer_controller = true
+  enable_aws_efs_csi_driver = true
   aws_load_balancer_controller = {
     name                 = "aws-load-balancer-controller"
     chart                = "aws-load-balancer-controller"
