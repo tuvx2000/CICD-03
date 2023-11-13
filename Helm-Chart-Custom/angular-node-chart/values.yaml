@@ -1,0 +1,8 @@
+replicaCount: 2
+
+image:
+  repository: docker.io/bbachin1/angular-node-webapp
+  pullPolicy: Always
+
+application:
+  name: angular-webapp
