@@ -1,36 +1,58 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: my-service-efs
-  # No namespace, PVs are global
+  name: efs-pv1
 spec:
-  accessModes:
-  - ReadWriteMany
   capacity:
-    storage: 1Mi
-  mountOptions:
-  - rsize=1048576
-  - wsize=1048576
-  - hard
-  - timeo=600
-  - retrans=2
-  - noresvport
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  nfs:
-    path: /
-  claimRef:
-    name: my-service-efs
-    namespace: my-service
+  storageClassName: efs-sc
+  # mountOptions:
+  #   - tls
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-0eeb6e5a1d6fd108f
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: my-service-efs
-  namespace: my-service
+  name: efs-claim1
 spec:
-  storageClassName: ""
   accessModes:
     - ReadWriteMany
+  storageClassName: efs-sc
   resources:
     requests:
-      storage: 1Mi
+      storage: 5Gi
+---
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: efs-app
+# spec:
+#   containers:
+#   - name: app
+#     image: centos
+#     command: ["/bin/sh"]
+#     args: ["-c", "while true; do echo $(date -u) >> /data-dir1/out.txt; sleep 5; done"]
+#     volumeMounts:
+#     - name: efs-volume-1
+#       mountPath: /data-dir1
+#     # - name: efs-volume-2 
+#     #   mountPath: /data-dir2
+#   volumes:
+#   - name: efs-volume-1
+#     persistentVolumeClaim:
+#       claimName: efs-claim1
+#   # - name: efs-volume-2
+  #   persistentVolumeClaim:
+  #     claimName: efs-claim2
