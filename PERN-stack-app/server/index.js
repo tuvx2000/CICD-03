@@ -2,6 +2,32 @@ const express = require("express");
 const app = express();
 const cors = require("cors")
 const pool = require("./database")
+var datetime = new Date();
+
+// const customFormat  = format.combine(format.timestamp(), format.printf((info) => {
+//   return `${info.timestamp} - [${info.level.toUpperCase().padEnd(7)}] -- ${info.message}`
+// }))
+
+// const customFormat = format.combine(
+//   format.timestamp(),
+//   format.printf((info) => {
+//     return `${info.timestamp} - [${info.level.toUpperCase().padEnd(7)}] - ${info.message}`;
+//   })
+// );
+
+
+const { createLogger, transports, format, info } = require('winston');
+const logger = createLogger({ 
+  // format: customFormat ,
+  level: 'debug',
+  transports: [
+    new transports.Console({ level : 'silly'}),
+    new transports.File({ filename: '/data-dir1/app.log', level: 'info',handleExceptions: true  })
+
+  ]
+});
+// module.exports logger;
+
 
 // 👇️ handle uncaught exceptions
 process.on('uncaughtException', function (err) {
@@ -28,7 +54,9 @@ app.post("/todos", async (req, res) => {
         "INSERT INTO todo (description) VALUES($1) RETURNING *",
         [description]
       );
-  
+      logger.info("put command " + datetime)
+      // logger.silly(allTodos.rows);
+      logger.info("--- end put!")
       res.json(newTodo);
     } catch (err) {
       console.error(err.message);
@@ -39,7 +67,12 @@ app.post("/todos", async (req, res) => {
 app.get("/todos", async (req, res) => {
     try {
       const allTodos = await pool.query("SELECT * FROM todo");
+      logger.info("list command "+ datetime)
+      // logger.silly(allTodos.rows);
+      logger.info("--- end list!")
+
       res.json(allTodos.rows);
+
     } catch (err) {
       console.error(err.message);
     }
@@ -53,7 +86,7 @@ app.get("/todos", async (req, res) => {
       const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [
         id
       ]);
-  
+
       res.json(todo.rows[0]);
     } catch (err) {
       console.error(err.message);
@@ -90,7 +123,13 @@ app.delete("/todos/:id", async (req, res) => {
   });
   
 
+  // logger.error("error")
+  // logger.warn("warn")
+  // logger.info("info")
+  // logger.debug("debug")
+  // logger.silly("sully")
 
 app.listen(80, ()=> {
-    console.log("server has started on port 80");
+    // console.log("server has started on port 80");
+    logger.info("this is log tuvo of logger -> running app" )
 });

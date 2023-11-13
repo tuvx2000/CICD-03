@@ -24,6 +24,7 @@ const ListTodos = () => {
       const response = await fetch("http://xuantu-2.ecvhub.link/todos");
       const jsonData = await response.json();
 
+      console.log(jsonData)
       setTodos(jsonData);
     } catch (err) {
       console.error(err.message);

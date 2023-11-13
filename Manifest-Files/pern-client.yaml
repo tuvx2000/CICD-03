@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pern-client
-          image: tuvx2000/pern-client:v0.8
+          image: tuvx2000/pern-client:v0.9
           ports:
             - containerPort: 3000
           env:

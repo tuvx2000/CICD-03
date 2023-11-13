@@ -15,9 +15,9 @@ module "efs" {
     element(module.vpc.azs, 0) = {
       subnet_id = element(module.vpc.private_subnets, 0)
     }
-    # element(module.vpc.azs, 1) = {
-    #   subnet_id = element(module.vpc.private_subnets, 1)
-    # }
+    element(module.vpc.azs, 1) = {
+      subnet_id = element(module.vpc.private_subnets, 1)
+    }
   }
   security_group_description = "EFS xuantu security group"
   security_group_vpc_id      = module.vpc.vpc_id

@@ -15,19 +15,19 @@ spec:
     spec:
       containers:
         - name: pern-server
-          image: tuvx2000/pern-server:v0.4
+          image: tuvx2000/pern-server:v0.7
           ports:
             - containerPort: 80
           env:
             - name: CUSTOM_TEXT
               value: "Welcome to my custom text app!"
           volumeMounts:
-            - name: efs
-              mountPath: "/data"
+            - name: efs-volume-1
+              mountPath: /data-dir1
       volumes:
-        - name: efs
+        - name: efs-volume-1
           persistentVolumeClaim:
-            claimName: my-service-efs
+            claimName:  efs-claim1
 
 ---
 apiVersion: v1
