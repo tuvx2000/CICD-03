@@ -251,6 +251,39 @@ module "eks_kubernetes_addons" {
       ACCOUNT_ID = var.account_id
     })]
   }
+
+  enable_argocd         = true
+   argocd = {
+    name             = "argo-cd"
+    chart            = "argo-cd"
+    # repository       = "https://argoproj.github.io/argo-helm"
+    version          = "5.25.0"
+    namespace        = "platform"
+    timeout          = "1200"
+    create_namespace = false
+    values = [templatefile("${path.module}/bootstrap/argo_mgm.tftpl", {
+      # GIT_TOKEN = var.gitlab_token
+      # GIT_URL   = var.repo_url
+    })]
+    # set_sensitive = [
+    #   {
+    #     name  = "configs.secret.argocdServerAdminPassword"
+    #     value = var.argo_password
+    #   }
+    # ]
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 #############################################
 #              Storage Classes              #

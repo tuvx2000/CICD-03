@@ -1,15 +1,15 @@
 controller:
   replicas: 1
-redis:
+redis: 
   enabled: true
 server:
   ingress:
     enabled: true
     ingressClassName: "alb"
     annotations:
-      alb.ingress.kubernetes.io/load-balancer-name: cde-eks-cluster-alb
+      alb.ingress.kubernetes.io/load-balancer-name: xuantu-argocd
       alb.ingress.kubernetes.io/scheme: internet-facing
-      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:963137721104:certificate/6f77300a-5c8b-476e-bcf3-a87db2f2b898
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:055475569617:certificate/647ab3f0-04bb-4b33-a69e-0a0746afb4ad
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
       alb.ingress.kubernetes.io/ssl-redirect: '443'
       alb.ingress.kubernetes.io/backend-protocol: HTTPS
@@ -17,9 +17,9 @@ server:
       alb.ingress.kubernetes.io/success-codes: '200,404'
       alb.ingress.kubernetes.io/healthcheck-path: /
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-2017-01
-      alb.ingress.kubernetes.io/group.name: macq
+      alb.ingress.kubernetes.io/group.name: platform
     hosts:
-      - argocd-test.nextpay.vn
+      - xuantu-1.ecvhub.link	
     paths:
       - /
 configs:
