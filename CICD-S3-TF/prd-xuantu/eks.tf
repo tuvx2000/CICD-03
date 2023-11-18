@@ -253,10 +253,12 @@ module "eks_kubernetes_addons" {
   }
 
   enable_argocd         = true
+
+
    argocd = {
     name             = "argo-cd"
     chart            = "argo-cd"
-    # repository       = "https://argoproj.github.io/argo-helm"
+    repository       = "https://argoproj.github.io/argo-helm"
     version          = "5.25.0"
     namespace        = "platform"
     timeout          = "1200"

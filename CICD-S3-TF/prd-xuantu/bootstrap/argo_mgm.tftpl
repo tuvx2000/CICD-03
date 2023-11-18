@@ -19,9 +19,10 @@ server:
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-2017-01
       alb.ingress.kubernetes.io/group.name: platform
     hosts:
-      - xuantu-1.ecvhub.link	
+      - xuantu-3.ecvhub.link	
     paths:
       - /
+
 configs:
   params:
     # -- define the application controller `--status-processors`
@@ -49,3 +50,10 @@ configs:
       p, role:dev-ecv, certificates, *, *, deny
       p, role:dev-ecv, accounts, *, *, deny
       g, dev-ecv, role:dev-nextpay
+  repositories: 
+      - name: github-cicd-03
+        type: git
+        url: https://github.com/tuvx2000/CICD-03.git
+        username: tuvx2000
+        password: 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
+  

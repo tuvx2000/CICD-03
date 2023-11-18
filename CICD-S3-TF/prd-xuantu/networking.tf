@@ -15,8 +15,8 @@ module "vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 
-  single_nat_gateway     = false
-  one_nat_gateway_per_az = true
+  single_nat_gateway     = true
+  # one_nat_gateway_per_az = true
 
   reuse_nat_ips       = true
   external_nat_ip_ids = aws_eip.nat.*.id

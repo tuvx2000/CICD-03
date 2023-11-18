@@ -1,0 +1,31 @@
+  applications:
+  - destination:
+      namespace: argocd-xuantu-app 
+      server: https://kubernetes.default.svc
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    name: argocd-01
+    namespace: platform
+    project: default
+    source:
+      repoURL: https://github.com/argoproj/argocd-example-apps.git
+      path: guestbook
+      targetRevision: HEAD
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  - destination:
+      namespace: argocd-xuantu-app-2
+      server: https://kubernetes.default.svc
+    finalizers: 
+    - resources-finalizer.argocd.argoproj.io
+    name: argocd-02
+    namespace: platform
+    project: default
+    source:
+      repoURL: https://github.com/tuvx2000/CICD-03.git
+      path: Manifest-Files/server-app
+      targetRevision: HEAD
+
+
