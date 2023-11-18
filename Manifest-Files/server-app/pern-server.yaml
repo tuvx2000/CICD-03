@@ -8,27 +8,16 @@ spec:
   selector:
     matchLabels:
       app: pern-server
-  template:
+  template: 
     metadata:
       labels:
         app: pern-server
     spec:
       containers:
         - name: pern-server
-          image: tuvx2000/pern-server:v0.7
+          image: nginx
           ports:
             - containerPort: 80
-          env:
-            - name: CUSTOM_TEXT
-              value: "Welcome to my custom text app!"
-          volumeMounts:
-            - name: efs-volume-1
-              mountPath: /data-dir1
-      volumes:
-        - name: efs-volume-1
-          persistentVolumeClaim:
-            claimName:  efs-claim1
-
 ---
 apiVersion: v1
 kind: Service
