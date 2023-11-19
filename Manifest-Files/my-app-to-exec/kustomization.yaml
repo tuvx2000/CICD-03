@@ -6,5 +6,5 @@ replicas:
 images: 
   - name: tuvx2000/pern-client
     newTag: v0.9
-resources:
+resources: 
   - ../my-app-base  
