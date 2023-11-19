@@ -27,5 +27,17 @@
       repoURL: https://github.com/tuvx2000/CICD-03.git
       path: Manifest-Files/server-app
       targetRevision: HEAD
+  - destination:
+      namespace: temp
+      server: https://kubernetes.default.svc
+    finalizers: 
+    - resources-finalizer.argocd.argoproj.io
+    name: argocd-03
+    namespace: platform
+    project: default
+    source:
+      repoURL: https://github.com/tuvx2000/CICD-03.git
+      path: Manifest-Files/my-app-to-exec
+      targetRevision: HEAD
 
 

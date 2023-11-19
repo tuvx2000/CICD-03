@@ -1,0 +1,10 @@
+--- 
+namespace: test01
+replicas:
+  - name: nginx-01
+    count: 4
+images: 
+  - name: tuvx2000/nginx
+    newTag: v0.1.5
+resources:
+  - ../../../my-app-base  
