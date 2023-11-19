@@ -1,0 +1,10 @@
+--- 
+namespace: test01
+replicas:
+  - name: nginx-01
+    count: 4
+images: 
+  - name: tuvx2000/pern-client
+    newTag: v0.9
+resources: 
+  - ../my-app-base  
