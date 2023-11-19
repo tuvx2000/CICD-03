@@ -7,4 +7,4 @@ images:
   - name: tuvx2000/nginx
     newTag: v0.1.5
 resources:
-  - ../../../my-app-base  
+  - ../my-app-base  
