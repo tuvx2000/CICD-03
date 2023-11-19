@@ -7,7 +7,7 @@
     name: argocd-01
     namespace: platform
     project: default
-    source:
+    source: 
       repoURL: https://github.com/argoproj/argocd-example-apps.git
       path: guestbook
       targetRevision: HEAD
@@ -16,7 +16,7 @@
         prune: true
         selfHeal: true
   - destination:
-      namespace: argocd-xuantu-app-2
+      namespace: temp
       server: https://kubernetes.default.svc
     finalizers: 
     - resources-finalizer.argocd.argoproj.io

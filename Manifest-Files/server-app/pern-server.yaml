@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pern-server
-          image: nginx
+          image: tuvx2000/pern-server:v0.7
           ports:
             - containerPort: 80
 ---
