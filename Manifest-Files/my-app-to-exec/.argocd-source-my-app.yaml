@@ -1,3 +1,0 @@
-kustomize:
-  images:
-  - tuvx2000/pern-client:v0.13
