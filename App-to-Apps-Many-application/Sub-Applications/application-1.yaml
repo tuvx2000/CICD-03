@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-app-03
+  name: my-app-02
   namespace: platform
   annotations: 
     argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client
@@ -15,7 +15,7 @@ spec:
   source: 
     repoURL: https://github.com/tuvx2000/CICD-03.git
     targetRevision: HEAD
-    path: Manifest-Files/my-app-to-exec-cp-01
+    path: Manifest-Files/my-app-to-exec-cp
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:

@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-01
-  namespace: default
+  name: nginx-03
+  # namespace: default
   labels:
     app: nginx
 spec:
