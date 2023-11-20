@@ -3,9 +3,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: my-app
-  namespace: temp
-  # annotations: 
-  #   argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client:~v0.5
+  namespace: platform
+  annotations: 
+    argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client:~v0.5
     # argocd-image-updater.argoproj.io/write-back-method: git
   finalizers: 
     - resources-finalizer.argocd.argoproj.io
