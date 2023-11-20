@@ -21,4 +21,4 @@ images:
   - name: tuvx2000/pern-client
     newTag: v0.9
 resources: 
-  - ../my-app-base  
+  - ../my-app-base-cp  
