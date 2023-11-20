@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: temp
+  annotations: 
+    argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client:~v0.5
+    # argocd-image-updater.argoproj.io/write-back-method: git
+  finalizers: 
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: temp
+  source: 
+    repoURL: https://github.com/tuvx2000/CICD-03.git
+    targetRevision: HEAD
+    path: Manifest-Files/my-app-to-exec
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    
+    
