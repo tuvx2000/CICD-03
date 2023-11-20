@@ -1,7 +1,21 @@
 --- 
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 namespace: test01
-replicas:
+replicas: 
   - name: nginx-01
+    count: 2
+images: 
+  - name: tuvx2000/pern-client
+    newTag: v0.9
+resources: 
+  - ../my-app-base  
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: test02
+replicas: 
+  - name: nginx-02
     count: 2
 images: 
   - name: tuvx2000/pern-client
