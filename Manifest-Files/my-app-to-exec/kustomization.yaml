@@ -13,7 +13,7 @@ resources:
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: test02
+namespace: test01
 replicas: 
   - name: nginx-02
     count: 2
