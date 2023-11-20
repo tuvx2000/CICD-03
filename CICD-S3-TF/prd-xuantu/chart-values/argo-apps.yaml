@@ -1,37 +1,40 @@
   applications:
-  - destination:
-      namespace: argocd-xuantu-app 
-      server: https://kubernetes.default.svc
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    name: argocd-01
-    namespace: platform
-    project: default
-    source: 
-      repoURL: https://github.com/argoproj/argocd-example-apps.git
-      path: guestbook
-      targetRevision: HEAD
-    syncPolicy:
-      automated:
-        prune: true
-        selfHeal: true
+  # - destination:
+  #     namespace: argocd-xuantu-app 
+  #     server: https://kubernetes.default.svc
+  #   finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
+  #   name: argocd-01
+  #   namespace: platform
+  #   project: default
+  #   source: 
+  #     repoURL: https://github.com/argoproj/argocd-example-apps.git
+  #     path: guestbook
+  #     targetRevision: HEAD
+  #   syncPolicy:
+  #     automated:
+  #       prune: true
+  #       selfHeal: true
+  # - destination:
+  #     namespace: temp
+  #     server: https://kubernetes.default.svc
+  #   finalizers: 
+  #   - resources-finalizer.argocd.argoproj.io
+  #   name: argocd-02
+  #   namespace: platform
+  #   project: default
+  #   source:
+  #     repoURL: https://github.com/tuvx2000/CICD-03.git
+  #     path: Manifest-Files/server-app
+  #     targetRevision: HEAD
   - destination:
       namespace: temp
       server: https://kubernetes.default.svc
     finalizers: 
     - resources-finalizer.argocd.argoproj.io
-    name: argocd-02
-    namespace: platform
-    project: default
-    source:
-      repoURL: https://github.com/tuvx2000/CICD-03.git
-      path: Manifest-Files/server-app
-      targetRevision: HEAD
-  - destination:
-      namespace: temp
-      server: https://kubernetes.default.svc
-    finalizers: 
-    - resources-finalizer.argocd.argoproj.io
+    additionalAnnotations: 
+      argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client:~v0.5
+      argocd-image-updater.argoproj.io/write-back-method: git
     name: argocd-033
     namespace: platform
     project: default
@@ -40,22 +43,25 @@
       path: Manifest-Files/my-app-to-exec
       targetRevision: HEAD
 
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: my-app
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: default
-  source: 
-    repoURL: https://github.com/tuvx2000/CICD-02.git
-    targetRevision: HEAD
-    path: environments/staging/my-app
-  destination:
-    server: https://kubernetes.default.svc
+# --- 
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: my-app
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+#   additionalAnnotations: 
+#     argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client:~v0.5
+#     argocd-image-updater.argoproj.io/write-back-method: git
+# spec:
+#   project: default
+#   source: 
+#     repoURL: https://github.com/tuvx2000/CICD-02.git
+#     targetRevision: HEAD
+#     path: environments/staging/my-app
+#   destination:
+#     server: https://kubernetes.default.svc
   
 
 
