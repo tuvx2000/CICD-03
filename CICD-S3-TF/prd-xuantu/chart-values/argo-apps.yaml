@@ -35,12 +35,13 @@
     additionalAnnotations: 
       argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client
       argocd-image-updater.argoproj.io/write-back-method: git
-    name: argocd-Main-Helm-TF
+    name: main-app-tf
     namespace: platform
     project: default
     source:
       repoURL: https://github.com/tuvx2000/CICD-03.git
-      path: Manifest-Files/my-app-to-exec
+      # path: Manifest-Files/my-app-to-exec
+      path: Manifest-Files/PERN-App-Manifest
       targetRevision: HEAD
 
 # --- 
