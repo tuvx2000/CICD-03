@@ -25,7 +25,7 @@
   #   project: default
   #   source:
   #     repoURL: https://github.com/tuvx2000/CICD-03.git
-  #     path: Manifest-Files/server-app
+  #     path: Manifest-Files/server-app 
   #     targetRevision: HEAD
   - destination:
       namespace: temp
@@ -33,9 +33,9 @@
     finalizers: 
     - resources-finalizer.argocd.argoproj.io
     additionalAnnotations: 
-      argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client:~v0.5
+      argocd-image-updater.argoproj.io/image-list: tuvx2000/pern-client
       argocd-image-updater.argoproj.io/write-back-method: git
-    name: argocd-033
+    name: argocd-Main-Helm-TF
     namespace: platform
     project: default
     source:
