@@ -1,7 +1,13 @@
-certsSecretName: gitlab-runner-certs
 concurrent: 15
-gitlabUrl: https://gitlab.msm.com.vn/
+gitlabUrl: https://gitlab.com
 imagePullPolicy: Always
 runnerRegistrationToken: vQWofzdYah4q7j_YN_eV
 runners:
   tags: kubernetes-runner
+  config: |
+    [[runners]]
+      [runners.kubernetes]
+        namespace = "{{.Release.Namespace}}"
+        image = "alpine"
+  executor: kubernetes
+

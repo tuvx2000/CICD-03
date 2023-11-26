@@ -1,0 +1,46 @@
+certsSecretName: gitlab-runner-certs
+concurrent: 15
+gitlabUrl: https://gitlab.com
+image:
+  image: gitlab-runner
+  registry: 705686712499.dkr.ecr.ap-southeast-1.amazonaws.com
+  tag: latest
+imagePullPolicy: Always
+rbac:
+  create: true
+  serviceAccountAnnotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::705686712499:role/runner-management
+  serviceAccountName: gitlab-runner
+runnerRegistrationToken: glrt-49puFpSkSkea6fN1WVa7
+runners:
+  config: |
+    [[runners]]
+      [runners.cache]
+        Type = "s3"
+        Path = ""
+        Shared = false
+        [runners.cache.s3]
+          ServerAddress = "s3.amazonaws.com"
+          BucketName = "msm-runner-cache"
+          BucketLocation = "ap-southeast-1"
+          Insecure = false
+      [runners.kubernetes]
+        namespace = "{{.Release.Namespace}}"
+        cpu_request = "1"
+        cpu_request_overwrite_max_allowed = "2"
+        memory_request = "1Gi"
+        memory_request_overwrite_max_allowed = "4Gi"
+        image = "ubuntu:20.04"
+        [runners.kubernetes.affinity]
+          [runners.kubernetes.affinity.node_affinity]
+            [runners.kubernetes.affinity.node_affinity.required_during_scheduling_ignored_during_execution]
+              [[runners.kubernetes.affinity.node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms]]
+                [[runners.kubernetes.affinity.node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms.match_expressions]]
+                  key = "type"
+                  operator = "In"
+                  values = ["karpenter"]
+  helpers:
+    image: 705686712499.dkr.ecr.ap-southeast-1.amazonaws.com/gitlab-runner-helper:x86_64-latest
+  privileged: true
+  serviceAccountName: gitlab-runner
+  tags: kubernetes-runner
