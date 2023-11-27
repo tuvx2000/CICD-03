@@ -48,7 +48,7 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
 spec:
   rules:
-    - host: xuantu-1.ecvhub.link
+    - host: xuantu-1.ecvhub.net
       http:
         paths:
           - path: /
@@ -58,7 +58,7 @@ spec:
                 name: pern-client-service
                 port:
                   number: 80
-    - host: xuantu-2.ecvhub.link
+    - host: xuantu-2.ecvhub.net
       http:
         paths:
           - path: /

@@ -9,7 +9,7 @@ server:
     annotations:
       alb.ingress.kubernetes.io/load-balancer-name: xuantu-argocd
       alb.ingress.kubernetes.io/scheme: internet-facing
-      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:055475569617:certificate/647ab3f0-04bb-4b33-a69e-0a0746afb4ad
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:055475569617:certificate/0fd3a4d9-c388-4ee5-b3bc-953b44ae6beb
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
       alb.ingress.kubernetes.io/ssl-redirect: '443'
       alb.ingress.kubernetes.io/backend-protocol: HTTPS
@@ -19,7 +19,7 @@ server:
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-2017-01
       alb.ingress.kubernetes.io/group.name: platform
     hosts:
-      - xuantu-3.ecvhub.link	
+      - xuantu-3.ecvhub.net	
     paths:
       - /
 
@@ -52,7 +52,7 @@ configs:
       g, dev-ecv, role:dev-nextpay
   https-creds:
     url: https://github.com
-    password: tuvx2001
+    password: tuvx2000
     username: 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
   repositories: 
       - name: github-cicd-03

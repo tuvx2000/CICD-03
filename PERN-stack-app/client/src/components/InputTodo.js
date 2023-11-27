@@ -7,7 +7,7 @@ const InputTodo = () => {
     e.preventDefault();
     try {
       const body = { description };
-      const response = await fetch("http://xuantu-2.ecvhub.link/todos", {
+      const response = await fetch("http://xuantu-2.ecvhub.net/todos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
