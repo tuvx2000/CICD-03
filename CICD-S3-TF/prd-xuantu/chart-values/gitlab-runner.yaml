@@ -1,7 +1,13 @@
 concurrent: 15
 gitlabUrl: https://gitlab.com
 imagePullPolicy: Always
-runnerRegistrationToken: vQWofzdYah4q7j_YN_eV
+runnerToken: glrt-mhwo8RCSFTVypwdDKyoP
+imagePullPolicy: Always
+rbac:
+  create: true
+  serviceAccountAnnotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::055475569617:role/runner-management
+  serviceAccountName: gitlab-runner
 runners:
   tags: kubernetes-runner
   config: |
@@ -10,4 +16,7 @@ runners:
         namespace = "{{.Release.Namespace}}"
         image = "alpine"
   executor: kubernetes
+  privileged: true
+  serviceAccountName: gitlab-runner
+  tags: kubernetes-runner
 
