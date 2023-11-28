@@ -41,7 +41,7 @@
     source:
       repoURL: https://github.com/tuvx2000/CICD-03.git
       path: Manifest-Files/my-app-to-exec 
-      path: Manifest-Files/PERN-App-Manifest
+      # path: Manifest-Files/PERN-App-Manifest
       targetRevision: HEAD
 
 # --- 
